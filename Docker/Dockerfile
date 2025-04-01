@@ -1,6 +1,9 @@
 FROM ubuntu:latest
 
-COPY ./.env /.env
+COPY ./Docker/.env /.env
+
+RUN mkdir -p /root/Desktop
+COPY . /root/Desktop/Turnstile-Solver/
 
 RUN apt-get update && \
     apt-get -y upgrade && \
@@ -37,7 +40,12 @@ RUN apt-get update && \
     apt-get install -y ./google-chrome-stable_current_amd64.deb && \
     rm ./google-chrome-stable_current_amd64.deb
 
-COPY ./run.sh /usr/bin/
+RUN if [ -f "/root/Desktop/Turnstile-Solver/requirements.txt" ]; then \
+    pip3 install -r /root/Desktop/Turnstile-Solver/requirements.txt --break-system-packages; \
+    else echo "requirements.txt not found"; \
+    fi
+
+COPY ./Docker/run.sh /usr/bin/
 RUN chmod +x /usr/bin/run.sh
 
 EXPOSE 3389

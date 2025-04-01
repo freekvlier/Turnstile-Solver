@@ -59,14 +59,5 @@ else
     usermod -aG sudo root || { echo "Failed to add user to sudo."; exit 1; }
 fi
 
-mkdir -p /root/Desktop
-
-cd /root/Desktop || { echo "Failed to change directory to /root/Desktop"; exit 1; }
-
-git clone https://github.com/Theyka/Turnstile-Solver.git
-cd Turnstile-Solver || { echo "Failed to change directory to Turnstile-Solver"; exit 1; }
-
-pip3 install -r requirements.txt --break-system-packages
-
 trap "stop_xrdp_services" SIGKILL SIGTERM SIGHUP SIGINT EXIT
 start_xrdp_services

@@ -1,0 +1,17 @@
+services:
+  turnstile-solver:
+    build:
+      context: .
+      dockerfile: ./Docker/Dockerfile
+    container_name: turnstile-solver
+    restart: unless-stopped
+    networks:
+      - openlitespeed
+    ports:
+      - "3389:3389"
+      - "5000:5000"
+
+networks:
+  openlitespeed:
+    external: true
+    name: openlitespeed_default
