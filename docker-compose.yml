@@ -2,9 +2,8 @@ services:
   turnstile-solver:
     build:
       context: .
-      dockerfile: ./Docker/Dockerfile
+      dockerfile: Dockerfile.api-solver
     container_name: turnstile-solver
     restart: unless-stopped
     ports:
-      - "3389:3389"
       - "5000:5000"
